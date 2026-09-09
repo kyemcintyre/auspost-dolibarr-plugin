@@ -6,6 +6,31 @@
 (function($) {
     'use strict';
 
+    // Helper to resolve AJAX endpoint URL
+    function getAjaxEndpoint() {
+        if (window.auspost_ajax_url) {
+            return window.auspost_ajax_url;
+        }
+        if (typeof dol_buildpath !== 'undefined') {
+            return dol_buildpath('/auspost/ajax/calculate.php', 1);
+        }
+        return (window.location.pathname.indexOf('/custom/') !== -1)
+            ? '../custom/auspost/ajax/calculate.php'
+            : '../../auspost/ajax/calculate.php';
+    }
+
+    // Helper to retrieve CSRF token from page
+    function getCsrfToken() {
+        if (window.auspost_token) {
+            return window.auspost_token;
+        }
+        var $token = $('input[name="token"]');
+        if ($token.length && $token.val()) {
+            return $token.val();
+        }
+        return '';
+    }
+
     // Global toggle for API key input field
     window.auspostToggleKeyVis = function() {
         var input = document.getElementById('AUSPOST_API_KEY');
@@ -47,7 +72,7 @@
         resultDiv.innerHTML = '<span class="opacitymedium"><i class="fa fa-spinner fa-spin"></i> Connecting to Australia Post...</span>';
         if (btn) btn.disabled = true;
 
-        var ajaxUrl = (typeof dol_buildpath !== 'undefined' ? dol_buildpath('/auspost/ajax/calculate.php', 1) : '../ajax/calculate.php');
+        var ajaxUrl = getAjaxEndpoint();
 
         $.ajax({
             url: ajaxUrl,
@@ -55,6 +80,7 @@
             dataType: 'json',
             data: {
                 action: 'test_connection',
+                token: getCsrfToken(),
                 api_key: apiKey,
                 api_base_url: apiBase
             }
@@ -68,8 +94,14 @@
                     msg + '</div>';
             }
         }).fail(function(xhr, status, error) {
-            resultDiv.innerHTML = '<div class="badge badge-danger" style="padding: 6px 12px; font-size: 0.95em;"><i class="fa fa-times-circle"></i> Request failed: ' +
-                error + '</div>';
+            var msg = error;
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                msg = xhr.responseJSON.message;
+            } else if (xhr.responseText && xhr.responseText.length < 200) {
+                msg = xhr.responseText;
+            }
+            resultDiv.innerHTML = '<div class="badge badge-danger" style="padding: 6px 12px; font-size: 0.95em;"><i class="fa fa-times-circle"></i> Request failed (' + xhr.status + '): ' +
+                msg + '</div>';
         }).always(function() {
             if (btn) btn.disabled = false;
         });
@@ -116,15 +148,6 @@
             });
         });
     });
-
-    function getAjaxEndpoint() {
-        if (typeof dol_buildpath !== 'undefined') {
-            return dol_buildpath('/auspost/ajax/calculate.php', 1);
-        }
-        return (window.location.pathname.indexOf('/custom/') !== -1)
-            ? '../custom/auspost/ajax/calculate.php'
-            : '../../auspost/ajax/calculate.php';
-    }
 
     function openAusPostModal(data) {
         var $overlay = $('#auspost-modal-overlay');
@@ -235,6 +258,7 @@
             dataType: 'json',
             data: {
                 action: 'get_rates',
+                token: getCsrfToken(),
                 from_postcode: fromPostcode,
                 to_postcode: toPostcode,
                 to_country: toCountry,
@@ -296,7 +320,13 @@
             });
 
         }).fail(function(xhr, status, error) {
-            $resContainer.html('<div class="badge badge-danger" style="display:block; padding: 10px;">Network or server error: ' + error + '</div>');
+            var msg = error;
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                msg = xhr.responseJSON.message;
+            } else if (xhr.responseText && xhr.responseText.length < 200) {
+                msg = xhr.responseText;
+            }
+            $resContainer.html('<div class="badge badge-danger" style="display:block; padding: 10px;">Request failed (' + xhr.status + '): ' + msg + '</div>');
         });
     }
 
@@ -316,6 +346,7 @@
             dataType: 'json',
             data: {
                 action: 'apply_to_document',
+                token: getCsrfToken(),
                 doctype: docType,
                 docid: docId,
                 service_code: serviceCode,
@@ -336,7 +367,13 @@
                 $btn.prop('disabled', false).html('<i class="fa fa-plus-circle"></i> Retry');
             }
         }).fail(function(xhr, status, error) {
-            alert('Request error: ' + error);
+            var msg = error;
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                msg = xhr.responseJSON.message;
+            } else if (xhr.responseText && xhr.responseText.length < 200) {
+                msg = xhr.responseText;
+            }
+            alert('Request error (' + xhr.status + '): ' + msg);
             $btn.prop('disabled', false).html('<i class="fa fa-plus-circle"></i> Retry');
         });
     }

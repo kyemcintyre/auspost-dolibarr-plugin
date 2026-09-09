@@ -118,6 +118,17 @@ class AusPostApi
         $startTime = microtime(true);
         // Fast test call using postcode search
         $response = $this->request('/postcode/search.json', array('q' => '2000'));
+        if ($response === false) {
+            // Fallback to domestic postage service list if key does not have postcode scope
+            $response = $this->request('/postage/parcel/domestic/service.json', array(
+                'from_postcode' => '2000',
+                'to_postcode'   => '3000',
+                'length'        => 10,
+                'width'         => 10,
+                'height'        => 10,
+                'weight'        => 1,
+            ));
+        }
         $latency = round((microtime(true) - $startTime) * 1000, 1);
 
         if ($response === false) {

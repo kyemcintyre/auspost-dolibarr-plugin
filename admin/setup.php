@@ -77,13 +77,18 @@ if ($action == 'save') {
  * View
  */
 $page_name = $langs->trans("AusPostSetup");
-llxHeader('', $page_name);
+llxHeader('', $page_name, '', '', 0, 0, array('/auspost/js/auspost.js'), array('/auspost/css/auspost.css'));
 
 $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php?restore_lastsearch_values=1">' . $langs->trans("BackToModuleList") . '</a>';
 print load_fiche_titre($page_name, $linkback, 'title_setup');
 
 $head = auspost_admin_prepare_head();
 print dol_get_fiche_head($head, 'settings', $langs->trans("AusPostSetup"), -1, 'fa-truck');
+
+print '<script type="text/javascript">';
+print 'window.auspost_ajax_url = "' . dol_escape_js(dol_buildpath('/auspost/ajax/calculate.php', 1)) . '";';
+print 'window.auspost_token = "' . dol_escape_js(newToken()) . '";';
+print '</script>';
 
 // Info banner
 print '<div class="info-box auspost-banner">';

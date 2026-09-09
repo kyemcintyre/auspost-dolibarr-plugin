@@ -168,6 +168,11 @@ class ActionsAuspost
         $btnHtml .= '<i class="fa fa-truck auspost-red-icon"></i> ' . $langs->trans("AusPostCalculateShipping");
         $btnHtml .= '</a>';
 
+        print '<script type="text/javascript">';
+        print 'window.auspost_ajax_url = "' . dol_escape_js(dol_buildpath('/auspost/ajax/calculate.php', 1)) . '";';
+        print 'window.auspost_token = "' . dol_escape_js(newToken()) . '";';
+        print '</script>';
+
         print $btnHtml;
 
         return 0;
