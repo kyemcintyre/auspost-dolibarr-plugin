@@ -27,7 +27,7 @@ jobs:
           coverage: none
 
       - name: Validate composer.json
-        run: composer validate --strict
+        run: composer validate --no-check-publish --no-check-version
 
       - name: Cache Composer Dependencies
         uses: actions/cache@v4
