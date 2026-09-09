@@ -28,7 +28,7 @@ if (!$user->admin && empty($user->rights->auspost->setup)) {
 
 $langs->loadLangs(array("admin", "auspost@auspost", "products"));
 
-$action = GETPOST('action', 'a_Z09');
+$action = GETPOST('action', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 /*
