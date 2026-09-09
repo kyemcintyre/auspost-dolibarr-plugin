@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.0...v1.0.1) (2026-09-09)
+
+
+### Bug Fixes
+
+* resolve NOREQUIREDB constant error in Dolibarr page loaders ([87061c3](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/87061c3e2a193741aa50fcd93a0235dfe381450e))
+* update composer validation to allow version field without failing ([cf28550](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/cf285507abf49e17ceeafe49fa114374298103bd))
+
 # 1.0.0 (2026-09-09)
 
 
