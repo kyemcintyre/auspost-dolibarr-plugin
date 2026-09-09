@@ -1,0 +1,268 @@
+/**
+ * Australia Post Plugin CSS
+ * Compatible with Dolibarr 21.0.2
+ */
+
+:root {
+    --auspost-red: #d6001c;
+    --auspost-red-hover: #b00017;
+    --auspost-dark: #222222;
+    --auspost-light-gray: #f8f9fa;
+    --auspost-border: #e2e8f0;
+}
+
+.auspost-red-icon {
+    color: var(--auspost-red) !important;
+}
+
+/* Banner */
+.auspost-banner {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+    border-left: 4px solid var(--auspost-red);
+    padding: 14px 18px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+.auspost-banner-icon {
+    margin-right: 15px;
+    color: var(--auspost-red);
+}
+
+.auspost-banner-text {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #333333;
+}
+
+/* Weights summary bar */
+.auspost-weights-summary {
+    background: #f1f5f9;
+    border: 1px solid var(--auspost-border);
+    border-radius: 6px;
+    padding: 10px 15px;
+    font-size: 0.95em;
+    color: #334155;
+    margin-bottom: 12px;
+}
+
+/* Badges */
+.badge.auspost-badge-express {
+    background-color: var(--auspost-red);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.badge.auspost-badge-standard {
+    background-color: #0284c7;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Modal Overlay */
+.auspost-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.auspost-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.auspost-modal-container {
+    background: #ffffff;
+    width: 90%;
+    max-width: 680px;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform 0.25s ease;
+}
+
+.auspost-modal-overlay.active .auspost-modal-container {
+    transform: translateY(0);
+}
+
+.auspost-modal-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--auspost-border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auspost-modal-header h3 {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auspost-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.4em;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    border-radius: 4px;
+}
+
+.auspost-modal-close:hover {
+    color: #0f172a;
+    background: #f1f5f9;
+}
+
+.auspost-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.auspost-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.auspost-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.auspost-form-group label {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 5px;
+}
+
+.auspost-form-group input,
+.auspost-form-group select {
+    padding: 7px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 0.95em;
+}
+
+.auspost-form-group input:focus,
+.auspost-form-group select:focus {
+    border-color: var(--auspost-red);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(214, 0, 28, 0.2);
+}
+
+.auspost-dim-inputs {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.auspost-dim-inputs input {
+    width: 60px;
+    text-align: center;
+}
+
+.auspost-card-rate {
+    border: 1px solid var(--auspost-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #ffffff;
+}
+
+.auspost-card-rate:hover {
+    border-color: var(--auspost-red);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.auspost-card-rate-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.auspost-card-rate-title {
+    font-weight: 600;
+    font-size: 1.05em;
+    color: #0f172a;
+}
+
+.auspost-card-rate-pricing {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.auspost-price-ttc {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: var(--auspost-red);
+}
+
+.auspost-price-ht {
+    font-size: 0.85em;
+    color: #64748b;
+}
+
+/* Spinner */
+.auspost-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(214, 0, 28, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--auspost-red);
+    animation: auspost-spin 0.8s linear infinite;
+}
+
+@keyframes auspost-spin {
+    to { transform: rotate(360deg); }
+}
+
+.auspost-loading-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+    gap: 12px;
+    color: #64748b;
+}

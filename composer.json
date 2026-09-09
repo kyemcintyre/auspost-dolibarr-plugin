@@ -1,0 +1,38 @@
+{
+    "name": "auspost/auspost-dolibarr-plugin",
+    "description": "Australia Post Shipping Rate Calculator Plugin for Dolibarr ERP/CRM 21.0.2",
+    "type": "dolibarr-module",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Kye McIntyre"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0 || ^11.0"
+    },
+    "autoload": {
+        "classmap": [
+            "class/",
+            "lib/",
+            "core/modules/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AusPost\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "package": "php scripts/build_package.php"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

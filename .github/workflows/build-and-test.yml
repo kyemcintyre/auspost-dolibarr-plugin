@@ -1,0 +1,103 @@
+name: Build, Test & Semantic Release
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: PHP ${{ matrix.php-version }} Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.1', '8.2', '8.3']
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: curl, json, mbstring, zip
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-${{ matrix.php-version }}-
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: PHP Syntax Linting
+        run: |
+          echo "Linting all PHP files..."
+          find . -type f -name "*.php" ! -path "./vendor/*" -print0 | while IFS= read -r -d '' file; do
+            php -l "$file" || exit 1
+          done
+          echo "All PHP files passed syntax check!"
+
+      - name: Run PHPUnit Tests
+        run: vendor/bin/phpunit --testdox
+
+  release:
+    name: Semantic Release & Package
+    needs: test
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code (Full History)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP for Module Packaging
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: zip
+
+      - name: Setup Node.js for Semantic Release
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Semantic Release & Plugins
+        run: |
+          npm install --no-save \
+            semantic-release@^23.0.0 \
+            @semantic-release/commit-analyzer@^12.0.0 \
+            @semantic-release/release-notes-generator@^13.0.0 \
+            @semantic-release/changelog@^6.0.0 \
+            @semantic-release/exec@^6.0.0 \
+            @semantic-release/git@^10.0.0 \
+            @semantic-release/github@^10.0.0
+
+      - name: Run Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Module Package Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auspost-dolibarr-module-release
+          path: dist/*.zip
+          if-no-files-found: ignore
