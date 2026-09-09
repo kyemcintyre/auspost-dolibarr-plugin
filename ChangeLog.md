@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.1...v1.0.2) (2026-09-09)
+
+
+### Bug Fixes
+
+* resolve CSRF 403 token check in AJAX endpoints and dynamic URL resolution ([7c8c212](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/7c8c2121a230599d1d19342847c1124f29a11d1a))
+
 ## [1.0.1](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.0...v1.0.1) (2026-09-09)
 
 
