@@ -1,3 +1,10 @@
+# 1.0.0 (2026-09-09)
+
+
+### Features
+
+* initialize Australia Post integration module for Dolibarr with PAC API support, shipping rate calculators, and CI/CD workflows ([91b1509](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/91b1509b001819b93ca941e6de798ce20bd96518))
+
 # ChangeLog
 
 ## [1.0.0] - 2026-09-10
