@@ -1,0 +1,1 @@
+# auspost-dolibarr-plugin
