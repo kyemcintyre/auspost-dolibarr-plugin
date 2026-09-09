@@ -8,16 +8,14 @@
  * @license   GPL-3.0-or-later
  */
 
+// Load Dolibarr environment
 $res = 0;
-if (!defined('NOREQUIREUSER'))  define('NOREQUIREUSER', '0');
-if (!defined('NOREQUIREDB'))    define('NOREQUIREDB', '0');
-if (!defined('NOREQUIRESOC'))   define('NOREQUIRESOC', '0');
-if (!defined('NOREQUIRETRAN'))  define('NOREQUIRETRAN', '0');
-
+// Try main.inc.php in root directories
+if (!$res && file_exists("../../main.inc.php")) $res = @include "../../main.inc.php";
 if (!$res && file_exists("../../../main.inc.php")) $res = @include "../../../main.inc.php";
 if (!$res && file_exists("../../../../main.inc.php")) $res = @include "../../../../main.inc.php";
 if (!$res && file_exists("../../../../../main.inc.php")) $res = @include "../../../../../main.inc.php";
-if (!$res) die("Include of main-fails");
+if (!$res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
 require_once __DIR__ . '/../lib/auspost.lib.php';
