@@ -189,9 +189,9 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td><label for="AUSPOST_SHIPPING_PRODUCT_ID">' . $langs->trans("AusPostLinkedProduct") . '</label></td>';
 print '<td>';
-require_once DOL_DOCUMENT_ROOT . '/product/class/html.formproduct.class.php';
-$formproduct = new FormProduct($db);
-print $formproduct->select_produits($shippingProductId, 'AUSPOST_SHIPPING_PRODUCT_ID', 1, 0, 0, 1, 2, '', 0, array(), 0, '1', 0, 'minwidth300');
+require_once DOL_DOCUMENT_ROOT . '/core/class/html.form.class.php';
+$form = new Form($db);
+print $form->select_produits($shippingProductId, 'AUSPOST_SHIPPING_PRODUCT_ID', 1, 0, 0, 1, 2, '', 0, array(), 0, '1', 0, 'minwidth300');
 print ' <span class="opacitymedium">' . $langs->trans("AusPostLinkedProductHelp") . '</span>';
 print '</td></tr>';
 
