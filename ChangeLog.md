@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.3...v1.0.4) (2026-09-10)
+
+
+### Bug Fixes
+
+* use Form class instead of FormProduct for select_produits ([0c361a1](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/0c361a15a3feb295dac61e8ad51af6c32977bf0d))
+
 ## [1.0.3](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.2...v1.0.3) (2026-09-10)
 
 

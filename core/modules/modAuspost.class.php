@@ -67,7 +67,7 @@ class modAuspost extends DolibarrModules
         // Module label & description
         $this->name = "auspost";
         $this->description = "Calculate Australia Post shipping rates and estimates for proposals, orders, and shipments";
-        $this->version = "1.0.3";
+        $this->version = "1.0.4";
         $this->const_name = "MAIN_MODULE_" . strtoupper($this->name);
         $this->special = 0;
         $this->picto = "fa-truck";
