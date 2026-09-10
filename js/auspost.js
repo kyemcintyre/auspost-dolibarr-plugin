@@ -296,12 +296,14 @@
                 html += '    <div class="opacitymedium small">' + rate.code + (rate.markup > 0 ? ' (Includes +' + rate.markup + ' handling fee)' : '') + '</div>';
                 html += '  </div>';
                 html += '  <div class="auspost-card-rate-pricing">';
-                html += '    <div class="auspost-price-ttc">' + rate.formatted_ttc + ' <span class="small" style="font-size:0.6em; color:#64748b;">(incl. GST)</span></div>';
+                html += '    <div class="auspost-price-cost">Our cost: ' + rate.formatted_base + '</div>';
+                html += '    <div class="auspost-price-ttc">Sell: ' + rate.formatted_ttc + ' <span class="small" style="font-size:0.6em; color:#64748b;">(incl. GST)</span></div>';
                 html += '    <div class="auspost-price-ht">' + rate.formatted_ht + ' excl. tax</div>';
                 html += '    <button type="button" class="button butAction auspost-btn-apply" ' +
                     'data-service-code="' + rate.code + '" ' +
                     'data-service-name="' + rate.name + '" ' +
                     'data-price-ht="' + rate.price_ht + '" ' +
+                    'data-base-price="' + rate.base_price + '" ' +
                     'data-vat-rate="' + rate.vat_rate + '" ' +
                     'data-doctype="' + docType + '" ' +
                     'data-docid="' + docId + '">';
@@ -336,6 +338,7 @@
         var serviceCode = $btn.data('service-code');
         var serviceName = $btn.data('service-name');
         var priceHt     = $btn.data('price-ht');
+        var basePrice   = $btn.data('base-price');
         var vatRate     = $btn.data('vat-rate');
 
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Adding...');
@@ -352,6 +355,7 @@
                 service_code: serviceCode,
                 service_name: serviceName,
                 price_ht: priceHt,
+                base_price: basePrice,
                 vat_rate: vatRate
             }
         }).done(function(res) {
