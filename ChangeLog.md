@@ -1,3 +1,11 @@
+## [1.0.5](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.4...v1.0.5) (2026-09-10)
+
+
+### Bug Fixes
+
+* correct white-on-grey contrast on module buttons ([dd0d2f3](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/dd0d2f3d05e17d3d221734caec0be1f9728ff118))
+* load module lang file and reject non-draft docs in apply_to_document ([6867b6f](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/6867b6f4de0fa22430d3d3f523a58e93cb77ff4e))
+
 ## [1.0.4](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.3...v1.0.4) (2026-09-10)
 
 
