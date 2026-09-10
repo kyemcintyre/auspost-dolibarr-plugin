@@ -161,6 +161,10 @@ if ($action == 'apply_to_document') {
     $priceHt     = (float)GETPOST('price_ht', 'alpha');
     $vatRate     = (float)GETPOST('vat_rate', 'alpha');
     $costPriceHt = (float)GETPOST('base_price', 'alpha');
+    $weight      = (float)GETPOST('weight', 'alpha');
+    $length      = (float)GETPOST('length', 'alpha');
+    $width       = (float)GETPOST('width', 'alpha');
+    $height      = (float)GETPOST('height', 'alpha');
 
     if ($docId <= 0 || empty($docType) || $priceHt < 0) {
         echo json_encode(array('success' => false, 'message' => $langs->trans("ErrorBadParameters")));
@@ -175,7 +179,24 @@ if ($action == 'apply_to_document') {
     }
 
     $shippingProductId = getDolGlobalInt('AUSPOST_SHIPPING_PRODUCT_ID', 0);
-    $desc = "Shipping: Australia Post - " . $serviceName;
+
+    // Mirrors the shipment-branch service-tier detection below so Standard vs Express
+    // is reported consistently regardless of destination document type.
+    $isExpress = ($serviceCode === 'AUS_PARCEL_EXPRESS' || strpos($serviceCode, 'EXP') !== false);
+    $serviceTier = $isExpress ? 'Express' : 'Standard';
+
+    $desc = $serviceName . " (" . $serviceTier . ")";
+
+    $descDetails = array();
+    if ($weight > 0) {
+        $descDetails[] = "Weight: " . round($weight, 2) . "kg";
+    }
+    if ($length > 0 && $width > 0 && $height > 0) {
+        $descDetails[] = "Dimensions: " . round($length, 1) . " x " . round($width, 1) . " x " . round($height, 1) . "cm";
+    }
+    if (!empty($descDetails)) {
+        $desc .= "\n" . implode(" | ", $descDetails);
+    }
 
     if ($docType == 'propal') {
         if (empty($user->rights->propal->creer)) {

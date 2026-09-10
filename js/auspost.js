@@ -305,6 +305,10 @@
                     'data-price-ht="' + rate.price_ht + '" ' +
                     'data-base-price="' + rate.base_price + '" ' +
                     'data-vat-rate="' + rate.vat_rate + '" ' +
+                    'data-weight="' + res.actual_weight + '" ' +
+                    'data-length="' + res.length + '" ' +
+                    'data-width="' + res.width + '" ' +
+                    'data-height="' + res.height + '" ' +
                     'data-doctype="' + docType + '" ' +
                     'data-docid="' + docId + '">';
                 html += '<i class="fa fa-plus-circle"></i> ' + (docType === 'shipment' ? 'Set as Shipping Mode' : 'Apply to ' + (docType === 'propal' ? 'Proposal' : 'Order'));
@@ -340,6 +344,10 @@
         var priceHt     = $btn.data('price-ht');
         var basePrice   = $btn.data('base-price');
         var vatRate     = $btn.data('vat-rate');
+        var weight      = $btn.data('weight');
+        var length      = $btn.data('length');
+        var width       = $btn.data('width');
+        var height      = $btn.data('height');
 
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Adding...');
 
@@ -356,7 +364,11 @@
                 service_name: serviceName,
                 price_ht: priceHt,
                 base_price: basePrice,
-                vat_rate: vatRate
+                vat_rate: vatRate,
+                weight: weight,
+                length: length,
+                width: width,
+                height: height
             }
         }).done(function(res) {
             if (res && res.success) {
