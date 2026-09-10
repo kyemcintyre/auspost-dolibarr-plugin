@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.5...v1.0.6) (2026-09-10)
+
+
+### Bug Fixes
+
+* record cost price on shipping lines and show it in the calculator ([6fa9651](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/6fa965151863da984e6ce9da575afec3de2bcab2))
+
 ## [1.0.5](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.4...v1.0.5) (2026-09-10)
 
 
