@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.6...v1.1.0) (2026-09-10)
+
+
+### Features
+
+* include weight, dimensions, and service tier in shipping line description ([7943381](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/7943381f9b371cd76ef3a489a1ec405a68f50987))
+
 ## [1.0.6](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.5...v1.0.6) (2026-09-10)
 
 
