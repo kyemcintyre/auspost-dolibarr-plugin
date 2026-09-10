@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.2...v1.0.3) (2026-09-10)
+
+
+### Bug Fixes
+
+* correct invalid GETPOST filter blocking module settings save ([7b7336b](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/7b7336bed360943959cc4f490982a72d804c5760))
+
 ## [1.0.2](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.1...v1.0.2) (2026-09-09)
 
 
