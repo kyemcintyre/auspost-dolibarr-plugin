@@ -30,6 +30,8 @@ header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/../lib/auspost.lib.php';
 require_once __DIR__ . '/../class/auspostapi.class.php';
 
+$langs->loadLangs(array('auspost@auspost', 'propal', 'orders', 'sendings'));
+
 $action = GETPOST('action', 'alpha');
 
 // 1. Action: test_connection
@@ -179,6 +181,11 @@ if ($action == 'apply_to_document') {
             exit;
         }
 
+        if ($propal->statut != Propal::STATUS_DRAFT) {
+            echo json_encode(array('success' => false, 'message' => $langs->trans("AusPostErrorDocumentNotDraft")));
+            exit;
+        }
+
         // Product type 1 = Service
         $result = $propal->addline(
             $desc,
@@ -190,6 +197,7 @@ if ($action == 'apply_to_document') {
             $shippingProductId > 0 ? $shippingProductId : 0,
             0,
             'HT',
+            0,
             0,
             1
         );
@@ -220,6 +228,11 @@ if ($action == 'apply_to_document') {
         $order = new Commande($db);
         if ($order->fetch($docId) <= 0) {
             echo json_encode(array('success' => false, 'message' => $langs->trans("ErrorRecordNotFound")));
+            exit;
+        }
+
+        if ($order->statut != Commande::STATUS_DRAFT) {
+            echo json_encode(array('success' => false, 'message' => $langs->trans("AusPostErrorDocumentNotDraft")));
             exit;
         }
 

@@ -15,6 +15,31 @@
     color: var(--auspost-red) !important;
 }
 
+/*
+ * Dolibarr's core theme only applies its action-button colors (--butactionbg /
+ * --textbutaction) to <input class="button"> and <a class="button">. This module
+ * uses <button> elements (to hold icons + onclick handlers), which Dolibarr's CSS
+ * does not target, so they fell back to unstyled/mismatched contrast (e.g. white
+ * text on a grey background). Re-apply Dolibarr's own theme variables so these
+ * buttons match the rest of the UI in any Dolibarr color theme, including dark mode.
+ */
+button.button {
+    background: var(--butactionbg);
+    color: var(--textbutaction);
+    border: none;
+    border-radius: 4px;
+}
+
+button.button:hover:not(:disabled):not(.nohover) {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2), 0px 0px 0px rgba(60, 60, 60, 0.1);
+}
+
+button.button:disabled {
+    opacity: 0.4;
+    box-shadow: none;
+    cursor: auto;
+}
+
 /* Banner */
 .auspost-banner {
     display: flex;

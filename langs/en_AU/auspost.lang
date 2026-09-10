@@ -48,6 +48,7 @@ AusPostErrorDestinationPostcodeRequired = Destination postcode is required for A
 AusPostErrorFailedToFetchRates = Unable to retrieve shipping rates from Australia Post. Please check your API key and parcel parameters.
 AusPostShippingLineAddedSuccess = Added '%s' shipping fee to document successfully!
 AusPostErrorAddingLine = Failed to insert shipping line into document.
+AusPostErrorDocumentNotDraft = This document must be in Draft status to add a shipping line. Please reopen it to Draft, or add the shipping cost manually.
 AusPostShipmentUpdatedSuccess = Updated shipment delivery mode to '%s'.
 AusPostHowItWorks = How the Australia Post Module Works
 AusPostHowItWorksText = This module integrates Australia Post's official Postage Assessment Calculator (PAC) API with Dolibarr CRM/ERP.
