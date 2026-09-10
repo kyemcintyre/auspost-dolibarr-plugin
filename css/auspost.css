@@ -267,6 +267,12 @@ button.button:disabled {
     color: #64748b;
 }
 
+.auspost-price-cost {
+    font-size: 0.8em;
+    color: #94a3b8;
+    font-style: italic;
+}
+
 /* Spinner */
 .auspost-spinner {
     display: inline-block;

@@ -130,6 +130,7 @@ if ($action == 'get_rates') {
             'tax_amount'       => $taxAmount,
             'price_ttc'        => $priceTtc,
             'max_extra_cover'  => isset($svc['max_extra_cover']) ? $svc['max_extra_cover'] : 0,
+            'formatted_base'   => price($basePrice, 0, $langs, 1, -1, -1, $conf->currency),
             'formatted_ht'     => price($priceHt, 0, $langs, 1, -1, -1, $conf->currency),
             'formatted_ttc'    => price($priceTtc, 0, $langs, 1, -1, -1, $conf->currency),
         );
@@ -159,10 +160,18 @@ if ($action == 'apply_to_document') {
     $serviceName = GETPOST('service_name', 'alpha');
     $priceHt     = (float)GETPOST('price_ht', 'alpha');
     $vatRate     = (float)GETPOST('vat_rate', 'alpha');
+    $costPriceHt = (float)GETPOST('base_price', 'alpha');
 
     if ($docId <= 0 || empty($docType) || $priceHt < 0) {
         echo json_encode(array('success' => false, 'message' => $langs->trans("ErrorBadParameters")));
         exit;
+    }
+
+    // Cost price (what Australia Post actually charges us) drives Dolibarr's margin
+    // reporting for this line. Fall back to the sell price (0 margin) rather than 0
+    // (which would falsely report a 100% margin) if it wasn't supplied.
+    if ($costPriceHt <= 0) {
+        $costPriceHt = $priceHt;
     }
 
     $shippingProductId = getDolGlobalInt('AUSPOST_SHIPPING_PRODUCT_ID', 0);
@@ -186,7 +195,8 @@ if ($action == 'apply_to_document') {
             exit;
         }
 
-        // Product type 1 = Service
+        // Product type 1 = Service. Trailing args set rang/special_code/fk_parent_line
+        // to their defaults so we can reach fk_fournprice/pa_ht (cost price) below.
         $result = $propal->addline(
             $desc,
             $priceHt,
@@ -199,7 +209,12 @@ if ($action == 'apply_to_document') {
             'HT',
             0,
             0,
-            1
+            1,
+            -1,
+            0,
+            0,
+            0,
+            $costPriceHt
         );
 
         if ($result > 0) {
@@ -236,6 +251,8 @@ if ($action == 'apply_to_document') {
             exit;
         }
 
+        // Trailing args set rang/special_code/fk_parent_line to their defaults so we
+        // can reach fk_fournprice/pa_ht (cost price) below.
         $result = $order->addline(
             $desc,
             $priceHt,
@@ -251,7 +268,12 @@ if ($action == 'apply_to_document') {
             0,
             '',
             '',
-            1
+            1,
+            -1,
+            0,
+            0,
+            0,
+            $costPriceHt
         );
 
         if ($result > 0) {
