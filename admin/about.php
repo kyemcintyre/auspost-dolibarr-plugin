@@ -21,7 +21,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
 require_once __DIR__ . '/../lib/auspost.lib.php';
 
 // Security check
-if (!$user->admin && empty($user->rights->auspost->setup)) {
+if (!$user->admin && !$user->hasRight('auspost', 'setup')) {
     accessforbidden();
 }
 

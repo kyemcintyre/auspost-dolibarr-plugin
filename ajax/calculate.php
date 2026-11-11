@@ -36,7 +36,7 @@ $action = GETPOST('action', 'alpha');
 
 // 1. Action: test_connection
 if ($action == 'test_connection') {
-    if (!$user->admin && empty($user->rights->auspost->setup)) {
+    if (!$user->admin && !$user->hasRight('auspost', 'setup')) {
         echo json_encode(array('success' => false, 'message' => $langs->trans("AccessForbidden")));
         exit;
     }
@@ -55,7 +55,7 @@ if ($action == 'test_connection') {
 }
 
 // Security check for calculation & document updates
-if (empty($conf->auspost->enabled) || empty($user->rights->auspost->read)) {
+if (!isModEnabled('auspost') || !$user->hasRight('auspost', 'read')) {
     echo json_encode(array('success' => false, 'message' => $langs->trans("AccessForbidden")));
     exit;
 }
@@ -199,7 +199,7 @@ if ($action == 'apply_to_document') {
     }
 
     if ($docType == 'propal') {
-        if (empty($user->rights->propal->creer)) {
+        if (!$user->hasRight('propal', 'creer')) {
             echo json_encode(array('success' => false, 'message' => $langs->trans("NotEnoughPermissions")));
             exit;
         }
@@ -255,7 +255,7 @@ if ($action == 'apply_to_document') {
         }
 
     } elseif ($docType == 'order') {
-        if (empty($user->rights->commande->creer)) {
+        if (!$user->hasRight('commande', 'creer')) {
             echo json_encode(array('success' => false, 'message' => $langs->trans("NotEnoughPermissions")));
             exit;
         }
