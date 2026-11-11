@@ -21,7 +21,7 @@ require_once __DIR__ . '/lib/auspost.lib.php';
 require_once __DIR__ . '/class/auspostapi.class.php';
 
 // Security check
-if (empty($conf->auspost->enabled) || empty($user->rights->auspost->read)) {
+if (!isModEnabled('auspost') || !$user->hasRight('auspost', 'read')) {
     accessforbidden();
 }
 
