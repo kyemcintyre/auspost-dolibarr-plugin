@@ -48,11 +48,11 @@ class ActionsAuspost
     {
         global $conf, $langs, $user, $mysoc;
 
-        if (empty($conf->auspost->enabled)) {
+        if (!isModEnabled('auspost')) {
             return 0;
         }
 
-        if (empty($user->rights->auspost->read)) {
+        if (!$user->hasRight('auspost', 'read')) {
             return 0;
         }
 

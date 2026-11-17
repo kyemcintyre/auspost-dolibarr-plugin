@@ -22,7 +22,7 @@ require_once __DIR__ . '/../lib/auspost.lib.php';
 require_once __DIR__ . '/../class/auspostapi.class.php';
 
 // Security check
-if (!$user->admin && empty($user->rights->auspost->setup)) {
+if (!$user->admin && !$user->hasRight('auspost', 'setup')) {
     accessforbidden();
 }
 

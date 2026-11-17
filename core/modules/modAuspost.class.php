@@ -204,8 +204,8 @@ class modAuspost extends DolibarrModules
             'url'       => '/auspost/calculator.php',
             'langs'     => 'auspost@auspost',
             'position'  => 550,
-            'enabled'   => '$conf->auspost->enabled',
-            'perms'     => '$user->rights->auspost->read',
+            'enabled'   => 'isModEnabled("auspost")',
+            'perms'     => '$user->hasRight("auspost", "read")',
             'target'    => '',
             'user'      => 2,
         );
