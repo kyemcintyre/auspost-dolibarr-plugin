@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.1.0...v1.1.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* use hasRight() and isModEnabled() instead of deprecated checks ([f1153c9](https://github.com/kyemcintyre/auspost-dolibarr-plugin/commit/f1153c9a92d853a0ac4e16627beda6e467fa25f4))
+
 # [1.1.0](https://github.com/kyemcintyre/auspost-dolibarr-plugin/compare/v1.0.6...v1.1.0) (2026-09-10)
 
 
